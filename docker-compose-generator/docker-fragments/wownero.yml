@@ -4,7 +4,7 @@ services:
   wownerod:
     restart: unless-stopped
     container_name: btcpayserver_wownerod
-    image: btcpayserver/wownero:0.11.0.3
+    image: skiiibummm/wownero:0.11.0.3
     entrypoint: monerod --rpc-bind-ip=0.0.0.0 --confirm-external-bind --rpc-bind-port=18181 --non-interactive --block-notify="/bin/sh ./scripts/notifier.sh -X GET http://btcpayserver:49392/wownerolikedaemoncallback/block?cryptoCode=wow&hash=%s" --hide-my-port --prune-blockchain --enable-dns-blocklist
     expose:
       - "18181"
@@ -14,7 +14,7 @@ services:
   wownerod_wallet:
     restart: unless-stopped
     container_name: btcpayserver_wownero_wallet
-    image: btcpayserver/wownero:0.11.0.3
+    image: skiiibummm/wownero:0.11.0.3
     entrypoint: wownero-wallet-rpc --rpc-bind-ip=0.0.0.0 --disable-rpc-login --confirm-external-bind --rpc-bind-port=18182 --non-interactive --trusted-daemon  --daemon-address=wownerod:18181 --wallet-file=/wallet/wallet --password-file=/wallet/password --tx-notify="/bin/sh ./scripts/notifier.sh  -X GET http://btcpayserver:49392/wownerolikedaemoncallback/tx?cryptoCode=wow&hash=%s"
     expose:
       - "18182"
